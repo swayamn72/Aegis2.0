@@ -1,0 +1,27 @@
+use crate::models::enums::AdminRole;
+use sea_orm::entity::prelude::*;
+use serde::{Deserialize, Serialize};
+use uuid::Uuid;
+
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Serialize, Deserialize)]
+#[sea_orm(table_name = "admins")]
+pub struct Model {
+    #[sea_orm(primary_key)]
+    pub id: Uuid,
+    pub username: String,
+    pub email: String,
+    pub password: String,
+    pub role: AdminRole,
+    pub permissions: Json,
+    pub is_active: bool,
+    pub last_login: Option<ChronoDateTimeUtc>,
+    pub login_attempts: i32,
+    pub lock_until: Option<ChronoDateTimeUtc>,
+    pub created_at: ChronoDateTimeUtc,
+    pub updated_at: ChronoDateTimeUtc,
+}
+
+#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
+pub enum Relation {}
+
+impl ActiveModelBehavior for ActiveModel {}

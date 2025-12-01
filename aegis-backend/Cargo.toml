@@ -1,0 +1,74 @@
+[package]
+name = "aegis-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Web Framework
+axum = { version = "0.7", features = ["macros", "multipart"] }
+tokio = { version = "1.0", features = ["full"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["cors", "trace", "fs"] }
+
+# Database - PostgreSQL (SeaORM only)
+sea-orm = { version = "0.12", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-uuid", "with-chrono", "with-json"] }
+sea-orm-migration = "0.12"
+
+# Database - LocalStack/DynamoDb
+
+
+# Serialization & Data
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.0", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Authentication & Security
+jsonwebtoken = "9.0"
+bcrypt = "0.15"
+argon2 = "0.5"
+
+# HTTP & External APIs
+reqwest = { version = "0.11", features = ["json", "multipart"] }
+hyper = "1.0"
+
+# Configuration & Environment
+dotenvy = "0.15"
+config = "0.14"
+
+# Logging & Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error Handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Real-time Communication
+socketioxide = { version = "0.9", features = ["tracing"] }
+
+# Validation
+validator = { version = "0.16", features = ["derive"] }
+
+# AWS SDK (Future)
+aws-config = "1.0"
+aws-sdk-rds = { version = "1.0", optional = true }
+aws-sdk-dynamodb = "1.0"
+serde_dynamo = { version = "4.2", features = ["aws-sdk-dynamodb+1"] }
+aws-sdk-s3 = "1.0"
+
+clap = { version = "4.0", features = ["derive"] }
+async-trait = "0.1"
+rust_decimal = { version = "1.0", features = ["serde"] }
+lettre = { version = "0.11", default-features = false, features = ["tokio1-rustls-tls", "smtp-transport", "builder"] }
+regex = "1.10"
+strum = { version = "0.25", features = ["derive"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[features]
+default = []
+aws = ["aws-sdk-rds" ]
+
+
